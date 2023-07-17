@@ -2,6 +2,7 @@ package net.auropay.javademo;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -11,7 +12,9 @@ import net.auropay.javademo.databinding.ActivityMainBinding;
 import net.auropay.payments.AuroPay;
 import net.auropay.payments.domain.enums.Country;
 import net.auropay.payments.domain.service.CustomerProfile;
+import net.auropay.payments.domain.service.EventListener;
 import net.auropay.payments.domain.service.PaymentResultListener;
+import net.auropay.payments.domain.service.Theme;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
@@ -29,41 +32,48 @@ public class MainActivity extends AppCompatActivity {
     private void initializations() {
         binding.buttonPay.setOnClickListener(v -> {
 
-            // Get AuroPay builder.
-            AuroPay auroPay = new AuroPay.Initialize(
-                    "Your merchant id",
-                    "Your access key",
-                    "Your secret key",
-                    getCustomerProfile())
-                    .autoContrast(true)
+            // Additional event listener.
+            EventListener eventListener = (eventId, eventDesc) -> Log.d("AuroPay Event", eventId + " - " + eventDesc);
+
+            // Customize the AuroPay UI colors to match the hosting application theme.
+            Theme theme = new Theme("#236C6C", "#FFFFFF", "#FFFFFF", "#FAAB03");
+
+            // Initialize and get the AuroPay instance using builder.
+            AuroPay auroPay = new AuroPay.Initialize()
+                    .subDomainId("Your subDomainId")
+                    .accessKey("Your accessKey")
+                    .secretKey("Your secretKey")
+                    .customerProfile(getCustomerProfile())
                     .country(Country.IN)
                     .showReceipt(true)
+                    .addEventListener(eventListener)
+                    .theme(theme)
                     .build();
 
             // Initiate payment request.
-            auroPay.doPayment(
-                    this,
-                    1500,
-                    "",
+            auroPay.doPayment(this, Double.parseDouble(binding.etAmount.getText().toString()), "", true,
+
+                    // Consume the payment request result.
                     new PaymentResultListener() {
                         @Override
                         public void onSuccess(@NonNull String orderId, int transactionStatus, @NonNull String transactionId) {
-                            // Handle payment success.
+                            // Handle payment success result.
                             Toast.makeText(context, "Success: " + transactionId, Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
-                        public void onFailure(@NonNull String message2) {
-                            // Handle payment failure.
-                            Toast.makeText(context, "Failed: $message", Toast.LENGTH_SHORT).show();
+                        public void onFailure(@NonNull String message) {
+                            // Handle payment failure result.
+                            Toast.makeText(context, "Failed: " + message, Toast.LENGTH_SHORT).show();
                         }
                     });
         });
     }
 
+    // Create customer profile model.
     private CustomerProfile getCustomerProfile() {
         return new CustomerProfile(
-                "Some Title",
+                "Title",
                 binding.etFirstName.getText().toString(),
                 "",
                 binding.etLastName.getText().toString(),

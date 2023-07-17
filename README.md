@@ -1,13 +1,18 @@
+<br/>
+<br/>
+<br/>
 
 <p align="center">
   <img src="https://v1-994035768921-hpg-artifactstore.s3.amazonaws.com/merchantsettings/default_invoice_logo.png">
 </p>
 
+<br/>
+<br/>
+
 ## Android Demo Application
 
 This repository contains sample application for Kotlin and Java to demonstrates how to integrate AuroPay payments SDK in your application.
 
-<br/>
 
 ### Prerequisite
 - You should be onboarded on AuroPay merchant portal.
@@ -24,11 +29,11 @@ This repository contains sample application for Kotlin and Java to demonstrates 
 
 - ### Kotlin
 ```kotlin
-    AuroPay.Initialize("Your sub domain id", "Your access key","Your secret key")
+    AuroPay.Initialize().subDomainId("Your subDomainId").accessKey("Your accessKey").secretKey("Your secretKey")
 ```
 - ### Java
 ```java 
-    new AuroPay.Initialize("Your sub domain id", "Your access key","Your secret key")
+    new AuroPay.Initialize().subDomainId("Your subDomainId").accessKey("Your accessKey").secretKey("Your secretKey")
 ```
 
 - Run the demo application.

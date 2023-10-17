@@ -51,8 +51,10 @@ public class MainActivity extends AppCompatActivity {
                     .build();
 
             // Initiate payment request.
-            auroPay.doPayment(this, Double.parseDouble(binding.etAmount.getText().toString()), "", true,
-
+            auroPay.doPayment(this,
+                    Double.parseDouble(binding.etAmount.getText().toString()),
+                    "xyz123",
+                    true,
                     // Consume the payment request result.
                     new PaymentResultListener() {
                         @Override

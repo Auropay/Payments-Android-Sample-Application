@@ -19,8 +19,9 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
@@ -47,5 +48,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     // Auropay SDK UAT / Sandbox.
-    implementation 'net.auropay:sandbox-payments-android:1.1.0'
+    implementation 'net.auropay:sandbox-payments-android:1.2.0'
 }

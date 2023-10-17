@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
             // Additional event listener.
             val eventListener = object : EventListener {
-                override fun onEvent(eventId: Int, eventDesc: String) {
+                override fun onEvent(eventId: String, eventDesc: String) {
                     Log.d("AuroPay Event", "$eventId - $eventDesc")
                 }
             }
@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity() {
                     this,
                     binding.etAmount.text.toString().toDouble(),
                     askCustomerDetails = false,
+                    referenceNumber = "xyz123",
                     // Consume the payment request result.
                     onPaymentResultListener = object : PaymentResultListener {
                         override fun onSuccess(orderId: String, transactionStatus: Int, transactionId: String) {

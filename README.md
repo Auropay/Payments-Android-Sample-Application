@@ -3,7 +3,7 @@
 <br/>
 
 <p align="center">
-  <img src="https://v1-994035768921-hpg-artifactstore.s3.amazonaws.com/merchantsettings/default_invoice_logo.png">
+  <img src="https://v1-994035768921-aspl-auropay.s3.ap-south-1.amazonaws.com/UIUX/default_invoice_logo.png">
 </p>
 
 <br/>
